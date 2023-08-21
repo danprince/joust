@@ -1,5 +1,4 @@
-import { AnimatedSprite, Animation, Behaviour, GameObject } from "./game";
-import { randomElement } from "./helpers";
+import { AnimatedSprite, Behaviour, GameObject } from "./game";
 import * as sprites from "./sprites";
 
 // Tags
