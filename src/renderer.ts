@@ -15,6 +15,7 @@ export function render() {
   ctx.translate(0, FLOOR);
 
   for (let x = 0; x < c.width; x += CELL_SIZE) {
+    drawSprite(sprites.tile_flags, x, - CELL_SIZE * 3);
     drawSprite(sprites.tile_crowd, x, - CELL_SIZE * 2);
     drawSprite(sprites.tile_wood, x, - CELL_SIZE);
     drawSprite(sprites.tile_rail, x, - CELL_SIZE);
