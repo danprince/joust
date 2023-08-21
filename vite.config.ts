@@ -4,7 +4,7 @@ export default defineConfig({
   plugins: [singleFile()],
   base: "./",
   build: {
-    polyfillModulePreload: false,
+    modulePreload: { polyfill: false },
     reportCompressedSize: false,
     assetsInlineLimit: 0,
     minify: "terser",
