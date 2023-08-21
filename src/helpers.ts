@@ -1,3 +1,7 @@
+export interface Constructor<T> {
+  new (...args: any[]): T;
+}
+
 export function randomElement<T>(array: T[]): T {
   return array[Math.floor(Math.random() * array.length)];
 }

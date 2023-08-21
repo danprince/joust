@@ -1,4 +1,4 @@
-import { removeFromArray } from "./helpers";
+import { Constructor, removeFromArray } from "./helpers";
 
 export interface Sprite {
   x: number;
@@ -77,16 +77,18 @@ export class Animation {
 
 export class Behaviour {
   speed = 1000;
-  private timer = 0;
+  private timer = this.speed;
   object: GameObject = undefined!;
 
   onTurn() {}
   onAdded() {}
   onRemoved() {}
   onBounce() {}
+  onUpdate() {}
   onCollide(target: GameObject) {}
 
   update() {
+    this.onUpdate();
     if (this.timer <= 0) {
       this.timer = this.speed;
       this.onTurn();
@@ -115,6 +117,20 @@ export class GameObject {
     this.behaviours.push(behaviour);
     behaviour.object = this;
     behaviour.onAdded();
+  }
+
+  getBehaviourByType(type: Constructor<Behaviour>): Behaviour | undefined {
+    return this.behaviours.find(b => b instanceof type);
+  }
+
+  removeBehaviourType(type: Constructor<Behaviour>) {
+    let behaviour = this.getBehaviourByType(type);
+    behaviour?.onRemoved();
+    removeFromArray(this.behaviours, behaviour);
+  }
+
+  hasBehaviourType(type: Constructor<Behaviour>) {
+    return this.getBehaviourByType(type) != null;
   }
 
   update() {

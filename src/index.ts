@@ -1,5 +1,6 @@
-import { Game } from "./game";
-import { Player, Peasant, King } from "./objects";
+import * as sprites from "./sprites";
+import { AnimatedSprite, Game } from "./game";
+import { Player, Peasant, King, Couched } from "./objects";
 import { render, resize } from "./renderer";
 
 declare global {
@@ -15,11 +16,28 @@ const KEY_LEFT = 37;
 const KEY_RIGHT = 39;
 const KEY_SPACE = 32;
 
+
 onkeydown = ({ which: key }) => {
-  if (key === KEY_LEFT) game.player.vx = -Math.abs(game.player.vx);
-  if (key === KEY_RIGHT) game.player.vx = Math.abs(game.player.vx);
-  if (key === KEY_SPACE) game.player.vy = 1.2;
+  if (key === KEY_LEFT) {
+    game.player.removeBehaviourType(Couched);
+    game.player.vx = -Math.abs(game.player.vx);
+  }
+
+  if (key === KEY_RIGHT) {
+    game.player.removeBehaviourType(Couched);
+    game.player.vx = Math.abs(game.player.vx);
+  }
+
+  if (key === KEY_SPACE) toggleCouch();
 };
+
+function toggleCouch() {
+  if (game.player.hasBehaviourType(Couched)) {
+    game.player.removeBehaviourType(Couched);
+  } else {
+    game.player.addBehaviour(new Couched);
+  }
+}
 
 let lastTickTime = 0;
 
