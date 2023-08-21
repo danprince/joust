@@ -1,5 +1,6 @@
-import { Game } from "./game";
-import { Player, Peasant, King, Couched } from "./objects";
+import { Game, GameObject } from "./game";
+import { chance, randomElement } from "./helpers";
+import { Player, Peasant, King, Couched, Knight } from "./objects";
 import { render, resize } from "./renderer";
 
 declare global {
@@ -14,7 +15,6 @@ declare global {
 const KEY_LEFT = 37;
 const KEY_RIGHT = 39;
 const KEY_SPACE = 32;
-
 
 onkeydown = ({ which: key }) => {
   if (key === KEY_LEFT) {
@@ -39,13 +39,41 @@ function toggleCouch() {
 }
 
 let lastTickTime = 0;
+let spawnTimer = 0;
+let spawnRate = 800;
 
 function loop(now: number) {
   let dt = now - lastTickTime;
+  spawnTimer += dt;
   lastTickTime = now;
+
+  while (spawnTimer > spawnRate) {
+    spawnTimer -= spawnRate;
+    spawn();
+  }
+
   requestAnimationFrame(loop);
   game.update(dt);
   render();
+}
+
+function spawn() {
+  let unit: GameObject;
+  let direction = randomElement([1, -1])
+
+  if (chance(0.2)) {
+    unit = Knight();
+  } else {
+    unit = Peasant();
+  }
+
+  unit.vx *= -direction;
+
+  if (direction > 0) {
+    unit.x = c.width;
+  }
+
+  game.addObject(unit);
 }
 
 function init() {
@@ -57,15 +85,6 @@ function init() {
 
   game.player = Player();
   game.addObject(game.player);
-
-  for (let i = 0; i < 100; i++) {
-    let unit = Peasant();
-    let direction = Math.random() > 0.5 ? 1 : -1;
-    unit.x = c.width / 2 + Math.random() * 1000 * direction;
-    unit.vx = direction * -Math.random();
-    unit.animatedSprite!.speed = 100 + (1 - Math.abs(unit.vx)) * 500;
-    game.addObject(unit);
-  }
 
   resize();
   onresize = resize;

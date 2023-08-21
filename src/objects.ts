@@ -55,16 +55,13 @@ export function Player() {
   object.vx = 1.2;
   object.x = c.width / 2;
   object.weight = 0.05;
-
-  let charge = new Behaviour();
-  object.addBehaviour(charge);
-
   return object;
 }
 
 export function Peasant() {
   let object = new GameObject();
   object.tags = ENEMY;
+  object.vx = 0.25;
   object.animatedSprite = new AnimatedSprite([
     sprites.villager_1_walk_1,
     sprites.villager_1_walk_2,
@@ -84,5 +81,17 @@ export function King() {
   patrol.speed = 3000;
   patrol.onTurn = () => (object.vx *= -1);
   object.addBehaviour(patrol);
+  return object;
+}
+
+export function Knight() {
+  let object = new GameObject();
+  object.vx = 1.2;
+  object.tags = ENEMY;
+  object.hitSprite = sprites.knight_2_hit;
+  object.animatedSprite = new AnimatedSprite([
+    sprites.knight_2_ride_1,
+    sprites.knight_2_ride_2,
+  ]);
   return object;
 }
