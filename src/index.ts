@@ -1,5 +1,4 @@
-import * as sprites from "./sprites";
-import { AnimatedSprite, Game } from "./game";
+import { Game } from "./game";
 import { Player, Peasant, King, Couched } from "./objects";
 import { render, resize } from "./renderer";
 
