@@ -14,3 +14,7 @@ export function removeFromArray<T>(array: T[], element: T) {
 export function chance(probability: number): boolean {
   return Math.random() < probability;
 }
+
+export function randomInt(max: number): number {
+  return Math.floor(Math.random() * max);
+}

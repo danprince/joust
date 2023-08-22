@@ -1,7 +1,9 @@
 import { AnimatedSprite, Behaviour, GameObject } from "./game";
+import { randomInt } from "./helpers";
 import * as sprites from "./sprites";
 
 // Tags
+const NONE = 0;
 const PLAYER = 1;
 const ENEMY = 2;
 
@@ -35,10 +37,11 @@ export class Couched extends Behaviour {
   }
 
   override onCollide(target: GameObject) {
-    target.vx = this.object.vx * (1 + Math.random() / 10);
-    target.vy = 30;
+    target.vx = randomInt(this.object.vx * 2);
+    target.vy = 50 + randomInt(50);
     target.sprite = target.hitSprite || target.sprite;
     target.animatedSprite = undefined;
+    target.tags = NONE;
     target.addBehaviour(new DespawnOnBounce());
   };
 }
@@ -54,7 +57,6 @@ export function Player() {
   ]);
   object.vx = 50;
   object.x = c.width / 2;
-  object.weight = 0.05;
   return object;
 }
 
