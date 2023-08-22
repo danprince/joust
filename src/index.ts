@@ -72,6 +72,10 @@ function spawn() {
   game.addObject(unit);
 }
 
+function focus() {
+  lastTickTime = performance.now();
+}
+
 function init() {
   window.game = new Game();
 
@@ -84,6 +88,7 @@ function init() {
 
   resize();
   onresize = resize;
+  onfocus = focus;
   requestAnimationFrame(loop);
 }
 
