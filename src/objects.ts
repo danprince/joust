@@ -13,7 +13,7 @@ export class DespawnOnBounce extends Behaviour {
   }
 }
 
-export class Couched extends Behaviour {
+export class Charging extends Behaviour {
   private originalSprite: AnimatedSprite | undefined;
   private speedModifier: number = 1.5;
   override speed: number = 1000;
@@ -28,7 +28,7 @@ export class Couched extends Behaviour {
   }
 
   override onTurn(): void {
-    this.object.removeBehaviourType(Couched);
+    this.object.removeBehaviourType(Charging);
   }
 
   override onRemoved(): void {
