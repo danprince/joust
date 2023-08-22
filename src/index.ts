@@ -1,6 +1,6 @@
 import { Game, GameObject } from "./game";
 import { chance, randomElement } from "./helpers";
-import { Player, Peasant, King, Charging, Knight } from "./objects";
+import { Player, Footman, King, Charging, Knight } from "./objects";
 import { render, resize } from "./renderer";
 
 declare global {
@@ -60,7 +60,7 @@ function spawn() {
   if (chance(0.2)) {
     unit = Knight();
   } else {
-    unit = Peasant();
+    unit = Footman();
   }
 
   unit.vx *= -direction;

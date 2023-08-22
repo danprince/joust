@@ -60,15 +60,15 @@ export function Player() {
   return object;
 }
 
-export function Peasant() {
+export function Footman() {
   let object = new GameObject();
   object.tags = ENEMY;
   object.vx = 25;
   object.animatedSprite = new AnimatedSprite([
-    sprites.villager_1_walk_1,
-    sprites.villager_1_walk_2,
+    sprites.footman_walk_1,
+    sprites.footman_walk_2,
   ]);
-  object.hitSprite = sprites.villager_1_hit;
+  object.hitSprite = sprites.footman_hit;
   return object;
 }
 
