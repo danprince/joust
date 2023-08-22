@@ -107,7 +107,7 @@ export class GameObject {
   y: number = 0;
   vx: number = 0;
   vy: number = 0;
-  weight: number = 0.1;
+  weight: number = 10;
   bounds: Rectangle = { x1: 0, y1: 0, x2: 0, y2: 0 };
   colliders: number = 0;
   tags: number = 0;
@@ -157,8 +157,11 @@ export class GameObject {
   }
 
   updatePhysics() {
-    this.x += this.vx;
-    this.y += this.vy;
+    // Velocity is in pixels per second
+    // Divide by 1000 to get pixels per millisecond
+    // Then multiply by the number of milliseconds since last game tick
+    this.x += this.vx / 1000 * game.dt;
+    this.y += this.vy / 1000 * game.dt;
 
     if (this.y > 0) {
       this.vy -= this.weight;
@@ -181,6 +184,7 @@ export class Game {
   animations: Animation[] = [];
   dt: number = 0;
   timer: number = 0;
+  speed: number = 1;
 
   addAnimation(animation: Animation) {
     this.animations.push(animation);
@@ -195,6 +199,7 @@ export class Game {
   }
 
   update(dt: number) {
+    dt *= this.speed;
     this.dt = dt;
     this.timer += dt;
 

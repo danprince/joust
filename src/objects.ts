@@ -36,8 +36,8 @@ export class Couched extends Behaviour {
   }
 
   override onCollide(target: GameObject) {
-    target.vx = this.object.vx * (1 + Math.random());
-    target.vy = 1 + Math.random();
+    target.vx = this.object.vx * (1 + Math.random() / 10);
+    target.vy = 30;
     target.sprite = target.hitSprite || target.sprite;
     target.animatedSprite = undefined;
     target.addBehaviour(new DespawnOnBounce());
@@ -52,7 +52,7 @@ export function Player() {
     sprites.knight_ride_1,
     sprites.knight_ride_2,
   ]);
-  object.vx = 1.2;
+  object.vx = 50;
   object.x = c.width / 2;
   object.weight = 0.05;
   return object;
@@ -61,7 +61,7 @@ export function Player() {
 export function Peasant() {
   let object = new GameObject();
   object.tags = ENEMY;
-  object.vx = 0.25;
+  object.vx = 25;
   object.animatedSprite = new AnimatedSprite([
     sprites.villager_1_walk_1,
     sprites.villager_1_walk_2,
@@ -76,7 +76,7 @@ export function King() {
     sprites.the_king_walk_1,
     sprites.the_king_walk_2,
   ]);
-  object.vx = -0.25;
+  object.vx = 10;
   let patrol = new Behaviour();
   patrol.speed = 3000;
   patrol.onTurn = () => (object.vx *= -1);
@@ -86,7 +86,7 @@ export function King() {
 
 export function Knight() {
   let object = new GameObject();
-  object.vx = 1.2;
+  object.vx = 50;
   object.tags = ENEMY;
   object.hitSprite = sprites.knight_2_hit;
   object.animatedSprite = new AnimatedSprite([
