@@ -88,6 +88,7 @@ const GLYPH_WIDTH_OVERRIDES: Record<string | number, number> = {
   p: 4,
   v: 4,
   z: 3,
+  s: 4,
   n: 4,
   I: 4,
   N: 6,
@@ -96,6 +97,8 @@ const GLYPH_WIDTH_OVERRIDES: Record<string | number, number> = {
   w: 6,
   "[": 3,
   "]": 3,
+  "|": 2,
+  " ": 3,
 };
 
 let tintCache: Record<string, HTMLCanvasElement> = {};
@@ -107,7 +110,9 @@ function tint(color: string): HTMLCanvasElement {
   canvas.width = s.width;
   canvas.height = s.height;
   ctx.fillStyle = color;
+  ctx.globalCompositeOperation = "multiply";
   ctx.fillRect(0, 0, s.width, s.height);
+  ctx.drawImage(s, 0, 0);
   ctx.globalCompositeOperation = "destination-atop";
   ctx.drawImage(s, 0, 0);
   return tintCache[color] = canvas;
