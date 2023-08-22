@@ -9,6 +9,17 @@ let ctx = c.getContext("2d")!;
 let scale = 1;
 
 export function render() {
+  drawScene();
+  drawUI();
+}
+
+export function resize() {
+  scale = Math.min(innerWidth / CANVAS_WIDTH, innerHeight / CANVAS_HEIGHT);
+  c.style.width = `${CANVAS_WIDTH * scale}px`;
+  c.style.height = `${CANVAS_HEIGHT * scale}px`;
+}
+
+function drawScene() {
   ctx.save();
   ctx.fillStyle = "skyblue";
   ctx.fillRect(0, 0, c.width, c.height);
@@ -26,7 +37,9 @@ export function render() {
   }
 
   ctx.restore();
+}
 
+function drawUI() {
   ctx.save();
   ctx.fillStyle = "#fff";
   ctx.strokeStyle = "#000";
@@ -35,12 +48,6 @@ export function render() {
   ctx.strokeStyle = "#9b510d";
   writeText("Press [SPACE] to charge", 120, 30);
   ctx.restore();
-}
-
-export function resize() {
-  scale = Math.min(innerWidth / CANVAS_WIDTH, innerHeight / CANVAS_HEIGHT);
-  c.style.width = `${CANVAS_WIDTH * scale}px`;
-  c.style.height = `${CANVAS_HEIGHT * scale}px`;
 }
 
 function drawSprite(sprite: Sprite, x: number, y: number) {
