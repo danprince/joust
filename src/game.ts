@@ -86,6 +86,7 @@ export class Behaviour {
   onBounce() {}
   onUpdate() {}
   onCollide(target: GameObject) {}
+  onDeath(killer?: GameObject) {}
 
   update() {
     this.onUpdate();
@@ -135,6 +136,12 @@ export class GameObject {
 
   hasBehaviourType(type: Constructor<Behaviour>) {
     return this.getBehaviourByType(type) != null;
+  }
+
+  die(killer?: GameObject) {
+    for (let behaviour of this.behaviours) {
+      behaviour.onDeath(killer);
+    }
   }
 
   update() {

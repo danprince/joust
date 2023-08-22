@@ -19,3 +19,4 @@ export const knight_2_ride_2 = { y: 87, url, w: 28, h: 19, x: 28, };
 export const font = { y: 0, url, w: 160, h: 28, x: 0, };
 export const bearer_walk_1 = { y: 47, url, w: 9, h: 19, x: 54, };
 export const bearer_walk_2 = { y: 47, url, w: 9, h: 19, x: 63, };
+export const standard = { y: 47, url, w: 7, h: 19, x: 72, };

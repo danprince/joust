@@ -45,6 +45,7 @@ export class Charging extends Behaviour {
     target.tags = NONE;
     target.bounces = false;
     target.addBehaviour(new DespawnOnBounce());
+    target.die(this.object);
   }
 }
 
@@ -81,6 +82,22 @@ export function Bearer() {
     sprites.bearer_walk_1,
     sprites.bearer_walk_2,
   ]);
+
+  let death = new Behaviour();
+  death.onDeath = () => {
+    let standard = Standard();
+    standard.x = object.x;
+    standard.y = 6;
+    game.addObject(standard);
+  }
+  object.addBehaviour(death);
+
+  return object;
+}
+
+export function Standard() {
+  let object = new GameObject();
+  object.sprite = sprites.standard;
   return object;
 }
 
