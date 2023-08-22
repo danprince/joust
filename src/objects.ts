@@ -3,9 +3,10 @@ import { randomInt } from "./helpers";
 import * as sprites from "./sprites";
 
 // Tags
-const NONE = 0;
-const PLAYER = 1;
-const ENEMY = 2;
+export const NONE = 0;
+export const PLAYER = 1;
+export const ENEMY = 2;
+export const KING = 4;
 
 export class DespawnOnBounce extends Behaviour {
   override onBounce(): void {
@@ -74,15 +75,30 @@ export function Footman() {
 
 export function King() {
   let object = new GameObject();
+  object.tags |= KING;
+  object.colliders |= ENEMY;
+  object.hitpoints = object.maxHitpoints = 10;
   object.animatedSprite = new AnimatedSprite([
     sprites.the_king_walk_1,
     sprites.the_king_walk_2,
   ]);
   object.vx = 10;
+
+  let combat = new Behaviour();
+  combat.onCollide = target => {
+    game.removeObject(target);
+    object.hitpoints -= 1;
+    if (object.hitpoints <= 0) {
+      game.speed = 0;
+    }
+  };
+  object.addBehaviour(combat);
+
   let patrol = new Behaviour();
   patrol.speed = 3000;
   patrol.onTurn = () => (object.vx *= -1);
   object.addBehaviour(patrol);
+
   return object;
 }
 

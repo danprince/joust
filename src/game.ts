@@ -114,6 +114,8 @@ export class GameObject {
   bounces: boolean = true;
   tags: number = 0;
   behaviours: Behaviour[] = [];
+  hitpoints: number = 0;
+  maxHitpoints: number = 0;
 
   addBehaviour(behaviour: Behaviour) {
     this.behaviours.push(behaviour);

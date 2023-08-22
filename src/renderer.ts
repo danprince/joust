@@ -1,5 +1,6 @@
 import * as sprites from "./sprites";
 import { GameObject, Sprite } from "./game";
+import { KING } from "./objects";
 const CANVAS_WIDTH = (c.width = 340);
 const CANVAS_HEIGHT = (c.height = 180);
 const CELL_SIZE = 16;
@@ -52,16 +53,12 @@ function drawScene() {
 
 function drawUI() {
   ctx.save();
-  ctx.fillStyle = "#fff";
-  ctx.strokeStyle = "#000";
-  writeText("DEFEND THE KING", 130, 10);
-  ctx.fillStyle = "#ffa423";
-  ctx.strokeStyle = "#9b510d";
-  writeText("Press [SPACE] to charge", 120, 30);
+  writeText("DEFEND THE KING", 130, 10, "#fff", "#000");
+  writeText("Press [SPACE] to charge", 120, 30, "#ffa423", "#9b510d");
   ctx.restore();
 }
 
-function drawSprite(sprite: Sprite, x: number, y: number) {
+function drawSprite(sprite: Sprite, x: number, y: number, w = sprite.w, h = sprite.h) {
   ctx.drawImage(
     s,
     sprite.x,
@@ -70,8 +67,8 @@ function drawSprite(sprite: Sprite, x: number, y: number) {
     sprite.h,
     x | 0,
     y | 0,
-    sprite.w,
-    sprite.h,
+    w | 0,
+    h | 0,
   );
 }
 
@@ -83,6 +80,21 @@ function drawGameObject(object: GameObject) {
   ctx.translate(object.x | 0, 0)
   if (flip) ctx.scale(-1, 1);
   drawSprite(object.sprite, -offset, dy);
+  ctx.restore();
+  if (object.tags & KING) {
+    drawHealthBar(object.x, object.y + 2, 21, object.hitpoints / object.maxHitpoints);
+  }
+}
+
+function drawHealthBar(x: number, y: number, width: number, value: number) {
+  ctx.save();
+  ctx.translate((x - width / 2) | 0, y | 0);
+  ctx.fillStyle = "#222034";
+  ctx.fillRect(0, 0, width, 3);
+  ctx.fillStyle = "#45283c";
+  ctx.fillRect(1, 1, width - 2, 1);
+  ctx.fillStyle = "#ac3232";
+  ctx.fillRect(1, 1, (width - 2) * value, 1);
   ctx.restore();
 }
 
@@ -136,11 +148,9 @@ function tint(color: string): HTMLCanvasElement {
   return tintCache[color] = canvas;
 }
 
-function writeText(text: string, x: number, y: number): void {
+function writeText(text: string, x: number, y: number, color: string, shadow?: string): void {
   let dx = Math.round(x);
   let dy = Math.round(y);
-  let color = ctx.fillStyle as string;
-  let shadow = ctx.strokeStyle as string;
   let source = tint(color);
 
   for (let ch of text) {
@@ -153,7 +163,7 @@ function writeText(text: string, x: number, y: number): void {
     let sh = GLYPH_HEIGHT;
 
     if (shadow) {
-      let source = tint(ctx.strokeStyle as string);
+      let source = tint(shadow);
       ctx.drawImage(source, sx, sy, sw, sh, dx + 1, dy, sw, sh);
       ctx.drawImage(source, sx, sy, sw, sh, dx, dy + 1, sw, sh);
       ctx.drawImage(source, sx, sy, sw, sh, dx + 1, dy + 1, sw, sh);
