@@ -108,9 +108,10 @@ export class GameObject {
   vx: number = 0;
   vy: number = 0;
   layer: number = 1;
-  weight: number = 10;
+  weight: number = 3;
   bounds: Rectangle = { x1: 0, y1: 0, x2: 0, y2: 0 };
   colliders: number = 0;
+  bounces: boolean = true;
   tags: number = 0;
   behaviours: Behaviour[] = [];
 
@@ -161,8 +162,8 @@ export class GameObject {
     // Velocity is in pixels per second
     // Divide by 1000 to get pixels per millisecond
     // Then multiply by the number of milliseconds since last game tick
-    this.x += this.vx / 1000 * game.dt;
-    this.y += this.vy / 1000 * game.dt;
+    this.x += (this.vx / 1000) * game.dt;
+    this.y += (this.vy / 1000) * game.dt;
 
     if (this.y > 0) {
       this.vy -= this.weight;
@@ -171,6 +172,11 @@ export class GameObject {
       for (let behaviour of this.behaviours) {
         behaviour.onBounce();
       }
+    }
+
+    if (this.bounces) {
+      if ((this.x <= 0 && this.vx < 0) || (this.x >= c.width && this.vx > 0))
+        this.vx *= -1;
     }
   }
 }
@@ -220,16 +226,6 @@ export class Game {
           }
         }
       }
-    }
-
-    if (this.player.x > c.width) {
-      this.player.x = c.width;
-      this.player.vx *= -1;
-    }
-
-    if (this.player.x < 0) {
-      this.player.x = 0;
-      this.player.vx *= -1;
     }
   }
 }
