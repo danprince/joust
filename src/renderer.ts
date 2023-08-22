@@ -136,6 +136,10 @@ let tintCache: Record<string, HTMLCanvasElement> = {};
 function tint(color: string): HTMLCanvasElement {
   if (tintCache[color]) return tintCache[color];
   let canvas = document.createElement("canvas");
+
+  // Sprites haven't loaded yet, but we still need to give back a canvas
+  if (!s.width) return canvas;
+
   let ctx = canvas.getContext("2d")!;
   canvas.width = s.width;
   canvas.height = s.height;
