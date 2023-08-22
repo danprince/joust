@@ -43,8 +43,9 @@ export class Charging extends Behaviour {
     target.sprite = target.hitSprite || target.sprite;
     target.animatedSprite = undefined;
     target.tags = NONE;
+    target.bounces = false;
     target.addBehaviour(new DespawnOnBounce());
-  };
+  }
 }
 
 export function Player() {
@@ -70,6 +71,16 @@ export function Footman() {
     sprites.footman_walk_2,
   ]);
   object.hitSprite = sprites.footman_hit;
+  return object;
+}
+
+export function Bearer() {
+  let object = Footman();
+  object.vx = 15;
+  object.animatedSprite = new AnimatedSprite([
+    sprites.bearer_walk_1,
+    sprites.bearer_walk_2,
+  ]);
   return object;
 }
 

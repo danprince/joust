@@ -1,6 +1,6 @@
 import { Game, GameObject } from "./game";
 import { chance, randomElement } from "./helpers";
-import { Player, Footman, King, Charging, Knight } from "./objects";
+import { Player, Footman, King, Charging, Knight, Bearer } from "./objects";
 import { render, resize } from "./renderer";
 
 declare global {
@@ -38,6 +38,7 @@ let lastTickTime = 0;
 let spawnTimer = 0;
 let spawnRate = 800;
 
+
 function loop(now: number) {
   let dt = now - lastTickTime;
   spawnTimer += dt;
@@ -59,6 +60,8 @@ function spawn() {
 
   if (chance(0.2)) {
     unit = Knight();
+  } else if (chance(0.2)) {
+    unit = Bearer();
   } else {
     unit = Footman();
   }
@@ -70,10 +73,6 @@ function spawn() {
   }
 
   game.addObject(unit);
-}
-
-function focus() {
-  lastTickTime = performance.now();
 }
 
 function init() {
@@ -88,7 +87,6 @@ function init() {
 
   resize();
   onresize = resize;
-  onfocus = focus;
   requestAnimationFrame(loop);
 }
 
