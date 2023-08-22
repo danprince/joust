@@ -16,3 +16,4 @@ export const knight_ride_2 = { w: 25, x: 81, url, y: 56, h: 19, };
 export const the_king_walk_1 = { w: 12, x: 0, url, y: 34, h: 20, };
 export const the_king_walk_2 = { w: 12, x: 12, url, y: 34, h: 20, };
 export const knight_2_ride_2 = { w: 28, x: 28, url, y: 75, h: 19, };
+export const font = { w: 160, x: 0, url, y: 139, h: 21, };
