@@ -220,5 +220,15 @@ export class Game {
         }
       }
     }
+
+    if (this.player.x > c.width) {
+      this.player.x = c.width;
+      this.player.vx *= -1;
+    }
+
+    if (this.player.x < 0) {
+      this.player.x = 0;
+      this.player.vx *= -1;
+    }
   }
 }
