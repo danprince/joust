@@ -27,13 +27,11 @@ onkeydown = ({ which: key }) => {
     game.player.vx = Math.abs(game.player.vx);
   }
 
-  if (key === KEY_SPACE) toggleCouch();
+  if (key === KEY_SPACE) couch();
 };
 
-function toggleCouch() {
-  if (game.player.hasBehaviourType(Couched)) {
-    game.player.removeBehaviourType(Couched);
-  } else {
+function couch() {
+  if (!game.player.hasBehaviourType(Couched)) {
     game.player.addBehaviour(new Couched);
   }
 }
