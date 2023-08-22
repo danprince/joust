@@ -107,6 +107,7 @@ export class GameObject {
   y: number = 0;
   vx: number = 0;
   vy: number = 0;
+  layer: number = 1;
   weight: number = 10;
   bounds: Rectangle = { x1: 0, y1: 0, x2: 0, y2: 0 };
   colliders: number = 0;

@@ -33,7 +33,19 @@ function drawScene() {
   }
 
   for (let object of game.objects) {
-    drawGameObject(object);
+    if (object.layer === 0) {
+      drawGameObject(object);
+    }
+  }
+
+  for (let x = 0; x < c.width; x += CELL_SIZE) {
+    drawSprite(sprites.tile_rail, x, - CELL_SIZE);
+  }
+
+  for (let object of game.objects) {
+    if (object.layer === 1) {
+      drawGameObject(object);
+    }
   }
 
   ctx.restore();

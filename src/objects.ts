@@ -48,6 +48,7 @@ export function Player() {
   let object = new GameObject();
   object.tags = PLAYER;
   object.colliders = ENEMY;
+  object.layer = 0;
   object.animatedSprite = new AnimatedSprite([
     sprites.knight_ride_1,
     sprites.knight_ride_2,
@@ -88,6 +89,7 @@ export function Knight() {
   let object = new GameObject();
   object.vx = 50;
   object.tags = ENEMY;
+  object.layer = 1;
   object.hitSprite = sprites.knight_2_hit;
   object.animatedSprite = new AnimatedSprite([
     sprites.knight_2_ride_1,
