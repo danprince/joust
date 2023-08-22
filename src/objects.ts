@@ -13,12 +13,11 @@ export class DespawnOnBounce extends Behaviour {
 
 export class Couched extends Behaviour {
   private originalSprite: AnimatedSprite | undefined;
-  private originalVx: number = 0;
+  private speedModifier: number = 1.5;
   override speed: number = 1000;
 
   override onAdded(): void {
-    this.originalVx = this.object.vx;
-    this.object.vx *= 1.5;
+    this.object.vx *= this.speedModifier;
     this.originalSprite = this.object.animatedSprite;
     this.object.animatedSprite = new AnimatedSprite([
       sprites.knight_couch_1,
@@ -31,7 +30,7 @@ export class Couched extends Behaviour {
   }
 
   override onRemoved(): void {
-    this.object.vx = this.originalVx;
+    this.object.vx /= this.speedModifier;
     this.object.animatedSprite = this.originalSprite;
   }
 
