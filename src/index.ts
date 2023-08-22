@@ -17,9 +17,6 @@ const KEY_RIGHT = 39;
 const KEY_SPACE = 32;
 
 onkeydown = ({ which: key }) => {
-  let couched = game.player.hasBehaviourType(Couched);
-  if (couched) return;
-
   if (key === KEY_LEFT) {
     game.player.removeBehaviourType(Couched);
     game.player.vx = -Math.abs(game.player.vx);
@@ -30,7 +27,11 @@ onkeydown = ({ which: key }) => {
     game.player.vx = Math.abs(game.player.vx);
   }
 
-  if (key === KEY_SPACE) game.player.addBehaviour(new Couched);
+  if (key === KEY_SPACE) {
+    if (!game.player.hasBehaviourType(Couched)) {
+      game.player.addBehaviour(new Couched);
+    }
+  }
 };
 
 let lastTickTime = 0;
