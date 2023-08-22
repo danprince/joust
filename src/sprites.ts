@@ -11,7 +11,6 @@ export const knight_2_hit = { w: 14, x: 56, url, y: 75, h: 16, };
 export const villager_1_walk_2 = { w: 10, x: 10, url, y: 16, h: 18, };
 export const knight_couch_2 = { w: 28, x: 28, url, y: 56, h: 19, };
 export const tile_wood = { w: 16, x: 32, url, y: 0, h: 16, };
-export const tile_flags = { w: 16, x: 64, url, y: 0, h: 16, };
 export const knight_ride_1 = { w: 25, x: 56, url, y: 56, h: 19, };
 export const knight_ride_2 = { w: 25, x: 81, url, y: 56, h: 19, };
 export const the_king_walk_1 = { w: 12, x: 0, url, y: 34, h: 20, };
